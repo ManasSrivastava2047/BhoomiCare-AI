@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="page-title">Crop Advisory – Weather Dashboard</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="app-header">
+    <h1 class="app-title">BhoomiCare AI</h1>
+    <p class="app-tagline">Smart Farming for a Sustainable Future</p>
+  </header>
+
+  <div class="language-switcher">
+    <label for="langSelect">🌐 <span data-i18n="language">Language</span>:</label>
+    <select id="langSelect">
+      <option value="en" selected>English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="bn">বাংলা</option>
+      <option value="ta">தமிழ்</option>
+      <option value="te">తెలుగు</option>
+      <option value="mr">मराठी</option>
+    </select>
+  </div>
+
+  <div class="main-dashboard">
+    <div class="left-column">
+      <div class="weather-widget card">
+        <h2 data-i18n="weather-info">Weather Information</h2>
+        <div class="location-search">
+          <input type="text" id="cityInput" placeholder="Enter city name" data-i18n-placeholder="enter-city" />
+          <button id="searchButton" data-i18n="search">Search</button>
+          <button id="locateMeButton" data-i18n="locate-me">Locate Me</button>
+        </div>
+
+        <p id="locationDisplay" class="location-display"></p>
+        <p id="loadingMessage" class="loading-message" style="display: none;" data-i18n="loading-weather">Loading weather data...</p>
+        <p id="errorMessage" class="error-message" style="display: none;"></p>
+
+        <div class="weather-icon"></div>
+        <p><strong data-i18n="temperature">Temperature:</strong> <span id="temperature"></span></p>
+        <p><strong data-i18n="humidity">Humidity:</strong> <span id="humidity"></span></p>
+        <p><strong data-i18n="windSpeed">Wind Speed:</strong> <span id="windSpeed"></span></p>
+        <p><strong data-i18n="condition">Condition:</strong> <span id="condition"></span></p>
+      </div>
+
+      <div class="crop-details-section card">
+        <h2 data-i18n="crop-details-title">🌾 Crop Details</h2>
+        <p data-i18n="crop-details-description">Enter details about your crop to get personalized advice.</p>
+        <div class="input-group">
+          <label for="cropTypeInput" data-i18n="crop-type-label">Crop Type:</label>
+          <input type="text" id="cropTypeInput" placeholder="e.g., Wheat, Rice, Corn" data-i18n-placeholder="crop-type-placeholder">
+        </div>
+        <div class="input-group">
+          <label for="growthStageInput" data-i18n="growth-stage-label">Growth Stage:</label>
+          <input type="text" id="growthStageInput" placeholder="e.g., Germination, Flowering, Harvesting" data-i18n-placeholder="growth-stage-placeholder">
+        </div>
+        <div class="input-group">
+          <label for="soilTypeInput" data-i18n="soil-type-label">Soil Type:</label>
+          <input type="text" id="soilTypeInput" placeholder="e.g., Loamy, Clay, Sandy" data-i18n-placeholder="soil-type-placeholder">
+        </div>
+        <div class="input-group">
+          <label for="observationsInput" data-i18n="observations-label">Recent Observations:</label>
+          <textarea id="observationsInput" rows="3" placeholder="e.g., Yellowing leaves, new shoots, pest signs" data-i18n-placeholder="observations-placeholder"></textarea>
+        </div>
+        <button id="updateCropDetailsButton" data-i18n="update-crop-details">Update Crop Details & Get Advice</button>
+        <p id="cropDetailsMessage" class="info-message" style="display: none;"></p>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="image-analysis-section card">
+        <h2 data-i18n="image-analysis-title">📸 Crop Image Analysis</h2>
+        <p data-i18n="image-analysis-description">Upload an image of your crop for AI-powered insights.</p>
+        <div class="file-upload-area">
+          <input type="file" id="cropImageInput" accept="image/*" style="display: none;">
+          <button id="uploadImageButton" data-i18n="upload-image-button">Choose Image</button>
+          <p id="fileNameDisplay" data-i18n="no-file-chosen">No file chosen</p>
+          <img id="uploadedImagePreview" src="#" alt="Crop Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 15px; border-radius: 8px;">
+        </div>
+        <button id="analyzeImageButton" data-i18n="analyze-image-button" style="margin-top: 15px;">Analyze Image</button>
+        <p id="imageAnalysisMessage" class="info-message" style="display: none;"></p>
+        <div id="imageAnalysisResults" class="analysis-results" style="display: none;">
+          <h3 data-i18n="analysis-results-heading">Analysis Results:</h3>
+          <p><strong data-i18n="detected-crop-type">Detected Crop Type:</strong> <span id="detectedCropType"></span></p>
+          <p><strong data-i18n="health-status">Health Status:</strong> <span id="healthStatus"></span></p>
+          <p><strong data-i18n="potential-issues">Potential Issues:</strong> <span id="potentialIssues"></span></p>
+        </div>
+      </div>
+
+      <div class="advisory-section card">
+        <h2 data-i18n="crop-advice">🌱 Crop Advice</h2>
+        <p id="adviceText">Loading...</p>
+      </div>
+
+      <div class="pest-section card">
+        <h2 data-i18n="pest-alerts">🐛 Pest Alerts</h2>
+        <ul id="pestAlerts"></ul>
+      </div>
+
+      <div class="watering-section card">
+        <h2 data-i18n="watering-suggestion">💧 Watering Suggestion</h2>
+        <p id="wateringText">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>

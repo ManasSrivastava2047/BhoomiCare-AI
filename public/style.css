@@ -1,0 +1,461 @@
+:root {
+  /* New Color Palette based on Grass/Vegetation/Crop */
+  --color-primary: #619b3c; /* Medium Green */
+  --color-secondary: #a7d129; /* Lighter Green/Yellowish Green */
+  --color-accent: #f4d03f; /* Amber/Yellow */
+  --color-text-dark: #333;
+  --color-text-light: #555;
+  --color-background: #e8f0e8; /* Slightly darker, muted green-gray */
+  --color-card-background: #ffffff;
+  --color-border: #d0d8d0; /* Softer border */
+  --color-error: #d32f2f; /* Darker Red */
+  --color-info: #1976d2; /* Darker Blue for info messages */
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-light);
+  padding: 0; /* Remove body padding, header will handle top spacing */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.app-header {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 25px 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px; /* Space below header */
+}
+
+.app-title {
+  font-size: 2.8em;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.app-tagline {
+  font-size: 1.1em;
+  font-weight: 400;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.main-dashboard {
+  display: grid;
+  grid-template-columns: 1fr; /* Default to single column */
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px; /* Increased max-width for wider layout */
+  padding: 0 15px;
+  flex-grow: 1; /* Allow dashboard to take available space */
+}
+
+@media (min-width: 768px) {
+  .main-dashboard {
+    grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+  }
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.language-switcher {
+  position: absolute; /* Changed to absolute to position relative to body/viewport */
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  background: var(--color-card-background);
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--color-border);
+}
+
+.language-switcher label {
+  font-weight: 500;
+  color: var(--color-text-dark);
+  font-size: 0.95em;
+}
+
+.language-switcher select {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+  font-size: 0.95em;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.language-switcher select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(97, 155, 60, 0.2); /* Adjusted shadow color */
+}
+
+/* Card Styling */
+.card {
+  background: var(--color-card-background);
+  border-radius: 16px; /* More rounded corners */
+  padding: 30px; /* Increased padding */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Stronger, softer shadow */
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+  color: var(--color-primary);
+  font-size: 2em; /* Larger headings */
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+}
+
+.location-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* Spacing between search elements */
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.location-search input[type="text"] {
+  padding: 14px; /* Increased padding */
+  border: 1px solid var(--color-border);
+  border-radius: 10px; /* More rounded */
+  flex-grow: 1;
+  min-width: 180px;
+  font-size: 1.05em;
+  color: var(--color-text-dark);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-search input[type="text"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(97, 155, 60, 0.2); /* Adjusted shadow color */
+  outline: none;
+}
+
+.location-search button,
+.crop-details-section button,
+.image-analysis-section button {
+  padding: 14px 25px; /* Increased padding */
+  border: none;
+  border-radius: 10px; /* More rounded */
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.05em;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.location-search button:hover,
+.crop-details-section button:hover,
+.image-analysis-section button:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.weather-icon {
+  font-size: 90px; /* Larger icon */
+  margin: 15px 0;
+  text-align: center;
+}
+
+.location-display {
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-accent);
+  margin-bottom: 15px;
+}
+
+.loading-message {
+  text-align: center;
+  color: var(--color-primary);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.error-message {
+  color: var(--color-error);
+  text-align: center;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.info-message {
+  color: var(--color-info);
+  text-align: center;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.weather-widget p strong {
+  color: var(--color-text-dark);
+  font-weight: 500;
+}
+
+.advisory-section p,
+.watering-section p {
+  font-size: 1.1em;
+  line-height: 1.7;
+  color: var(--color-text-light);
+}
+
+.pest-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pest-section li {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Crop Details Section Specific Styles */
+.crop-details-section .input-group {
+  margin-bottom: 15px;
+}
+
+.crop-details-section label {
+  display: block;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.crop-details-section input[type="text"],
+.crop-details-section textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1em;
+  color: var(--color-text-dark);
+  box-sizing: border-box; /* Ensure padding doesn't increase width */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.crop-details-section input[type="text"]:focus,
+.crop-details-section textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(97, 155, 60, 0.2); /* Adjusted shadow color */
+  outline: none;
+}
+
+.crop-details-section textarea {
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 80px;
+}
+
+.crop-details-section button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Image Analysis Section Specific Styles */
+.image-analysis-section .file-upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+  background-color: var(--color-background);
+}
+
+.image-analysis-section .file-upload-area button {
+  background-color: var(--color-secondary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.95em;
+  width: auto; /* Override 100% width from general button style */
+}
+
+.image-analysis-section .file-upload-area button:hover {
+  background-color: var(--color-primary);
+}
+
+.image-analysis-section #fileNameDisplay {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: var(--color-text-light);
+}
+
+.image-analysis-section .analysis-results {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-border);
+}
+
+.image-analysis-section .analysis-results h3 {
+  color: var(--color-primary);
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.image-analysis-section .analysis-results p {
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.image-analysis-section .analysis-results strong {
+  color: var(--color-text-dark);
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+
+  .app-title {
+    font-size: 2.2em;
+  }
+
+  .app-tagline {
+    font-size: 1em;
+  }
+
+  .main-dashboard {
+    grid-template-columns: 1fr; /* Stack columns vertically on smaller screens */
+    padding: 0 10px;
+  }
+
+  .language-switcher {
+    position: static; /* Make it static on small screens */
+    margin-bottom: 20px;
+    width: fit-content;
+    align-self: flex-end;
+  }
+
+  .card {
+    padding: 25px;
+    border-radius: 12px;
+  }
+
+  .card h2 {
+    font-size: 1.8em;
+  }
+
+  .location-search {
+    flex-direction: column;
+  }
+
+  .location-search input[type="text"],
+  .location-search button,
+  .crop-details-section input[type="text"],
+  .crop-details-section textarea,
+  .crop-details-section button,
+  .image-analysis-section button {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1em;
+    padding: 12px;
+  }
+
+  .weather-icon {
+    font-size: 70px;
+  }
+
+  .location-display {
+    font-size: 1.1em;
+  }
+
+  .advisory-section p,
+  .watering-section p {
+    font-size: 1em;
+  }
+
+  .pest-section li {
+    padding: 10px 15px;
+    font-size: 0.95em;
+  }
+
+  .image-analysis-section .file-upload-area button {
+    width: 100%; /* Make upload button full width on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 0; /* Remove body padding for very small screens */
+  }
+
+  .app-header {
+    padding: 15px 10px;
+    margin-bottom: 15px;
+  }
+
+  .app-title {
+    font-size: 1.8em;
+  }
+
+  .app-tagline {
+    font-size: 0.9em;
+  }
+
+  .main-dashboard {
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .card h2 {
+    font-size: 1.6em;
+    margin-bottom: 10px;
+  }
+
+  .weather-icon {
+    font-size: 60px;
+  }
+
+  .location-display {
+    font-size: 1em;
+  }
+}
