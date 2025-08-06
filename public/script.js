@@ -468,7 +468,7 @@ async function fetchCropImageAnalysis() {
   formData.append("crop_image", selectedImageFile)
 
   try {
-    const res = await fetch("/api/analyze-crop-image", {
+    const res = await fetch("https://bhoomicare-backend.onrender.com/api/analyze-crop-image", {
       method: "POST",
       body: formData,
     })
