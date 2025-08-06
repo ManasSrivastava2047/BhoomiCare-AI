@@ -1,7 +1,7 @@
-🌱 CultivaMind AI
+🌱 BhoomiCare AI
 Smart Farming for a Sustainable Future
 
-CultivaMind AI is a web-based assistant designed to help farmers take better care of their crops. It offers personalized advice based on the weather, crop type, soil conditions, and other farm-specific details. It’s also ready for future AI features like image analysis and smarter suggestions.
+BhoomiCare AI is a web-based assistant designed to help farmers take better care of their crops. It offers personalized advice based on the weather, crop type, soil conditions, and other farm-specific details. It’s also ready for future AI features like image analysis and smarter suggestions.
 
 🚀 What It Can Do
 🌤️ Live Weather Updates – Get current weather info for your area or a city you type in.
