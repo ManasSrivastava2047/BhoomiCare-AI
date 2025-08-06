@@ -1,113 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-i18n="page-title">Crop Advisory – Weather Dashboard</title>
-  <link rel="stylesheet" href="/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BhoomiCare AI - Smart Crop Advisor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
 </head>
 <body>
-
-  <header class="app-header">
-    <h1 class="app-title">BhoomiCare AI</h1>
-    <p class="app-tagline">Smart Farming for a Sustainable Future</p>
-  </header>
-
-  <div class="language-switcher">
-    <label for="langSelect">🌐 <span data-i18n="language">Language</span>:</label>
-    <select id="langSelect">
-      <option value="en" selected>English</option>
-      <option value="hi">हिन्दी</option>
-      <option value="bn">বাংলা</option>
-      <option value="ta">தமிழ்</option>
-      <option value="te">తెలుగు</option>
-      <option value="mr">मराठी</option>
-    </select>
-  </div>
-
-  <div class="main-dashboard">
-    <div class="left-column">
-      <div class="weather-widget card">
-        <h2 data-i18n="weather-info">Weather Information</h2>
-        <div class="location-search">
-          <input type="text" id="cityInput" placeholder="Enter city name" data-i18n-placeholder="enter-city" />
-          <button id="searchButton" data-i18n="search">Search</button>
-          <button id="locateMeButton" data-i18n="locate-me">Locate Me</button>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <div class="logo-text">
+                        <h1>BhoomiCare AI</h1>
+                        <p>Smart Farming Assistant</p>
+                    </div>
+                </div>
+                <div class="header-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🌤️</span>
+                        <span>Weather Insights</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🐛</span>
+                        <span>Pest Alerts</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💧</span>
+                        <span>Smart Irrigation</span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </header>
 
-        <p id="locationDisplay" class="location-display"></p>
-        <p id="loadingMessage" class="loading-message" style="display: none;" data-i18n="loading-weather">Loading weather data...</p>
-        <p id="errorMessage" class="error-message" style="display: none;"></p>
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section" id="welcomeSection">
+                <div class="welcome-content">
+                    <h2>Welcome to Smart Farming</h2>
+                    <p>Get AI-powered crop advice based on real-time weather data and agricultural best practices</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalQueries">0</span>
+                            <span class="stat-label">Farmers Helped</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Available</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Crop Types</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Crop Input Form -->
+                <div class="form-card">
+                    <h3>Get Personalized Crop Advice</h3>
+                    <form id="cropForm" class="crop-form">
+                        <div class="form-group">
+                            <label for="cropName">
+                                <span class="label-icon">🌾</span>
+                                Crop Name *
+                            </label>
+                            <input type="text" id="cropName" name="cropName" required 
+                                   placeholder="e.g., Rice, Wheat, Cotton">
+                            <div class="crop-suggestions">
+                                <button type="button" class="suggestion-btn" data-crop="Rice">Rice</button>
+                                <button type="button" class="suggestion-btn" data-crop="Wheat">Wheat</button>
+                                <button type="button" class="suggestion-btn" data-crop="Cotton">Cotton</button>
+                                <button type="button" class="suggestion-btn" data-crop="Sugarcane">Sugarcane</button>
+                                <button type="button" class="suggestion-btn" data-crop="Maize">Maize</button>
+                                <button type="button" class="suggestion-btn" data-crop="Bajra">Bajra</button>
+                            </div>
+                        </div>
 
-        <div class="weather-icon"></div>
-        <p><strong data-i18n="temperature">Temperature:</strong> <span id="temperature"></span></p>
-        <p><strong data-i18n="humidity">Humidity:</strong> <span id="humidity"></span></p>
-        <p><strong data-i18n="windSpeed">Wind Speed:</strong> <span id="windSpeed"></span></p>
-        <p><strong data-i18n="condition">Condition:</strong> <span id="condition"></span></p>
-      </div>
+                        <div class="form-group">
+                            <label for="location">
+                                <span class="label-icon">📍</span>
+                                Location *
+                            </label>
+                            <input type="text" id="location" name="location" required 
+                                   placeholder="e.g., Mumbai, Maharashtra">
+                        </div>
 
-      <div class="crop-details-section card">
-        <h2 data-i18n="crop-details-title">🌾 Crop Details</h2>
-        <p data-i18n="crop-details-description">Enter details about your crop to get personalized advice.</p>
-        <div class="input-group">
-          <label for="cropTypeInput" data-i18n="crop-type-label">Crop Type:</label>
-          <input type="text" id="cropTypeInput" placeholder="e.g., Wheat, Rice, Corn" data-i18n-placeholder="crop-type-placeholder">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sowingDate">
+                                    <span class="label-icon">📅</span>
+                                    Sowing Date (Optional)
+                                </label>
+                                <input type="date" id="sowingDate" name="sowingDate">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cropStage">
+                                    <span class="label-icon">🌱</span>
+                                    Crop Stage (Optional)
+                                </label>
+                                <select id="cropStage" name="cropStage">
+                                    <option value="">Select stage</option>
+                                    <option value="Seed Preparation">Seed Preparation</option>
+                                    <option value="Sowing">Sowing</option>
+                                    <option value="Germination">Germination</option>
+                                    <option value="Vegetative Growth">Vegetative Growth</option>
+                                    <option value="Flowering">Flowering</option>
+                                    <option value="Fruiting">Fruiting</option>
+                                    <option value="Maturity">Maturity</option>
+                                    <option value="Harvesting">Harvesting</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span class="btn-text">Get Smart Recommendations</span>
+                            <span class="btn-loader" style="display: none;">
+                                <span class="spinner"></span>
+                                Getting advice...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2 id="resultsTitle">Crop Advisory Dashboard</h2>
+                    <button class="new-query-btn" id="newQueryBtn">New Query</button>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Weather Card -->
+                    <div class="result-card weather-card">
+                        <div class="card-header">
+                            <h3>🌤️ Current Weather</h3>
+                            <span class="location-badge" id="weatherLocation"></span>
+                        </div>
+                        <div class="weather-content">
+                            <div class="weather-main">
+                                <div class="weather-icon" id="weatherIcon">🌤️</div>
+                                <div class="weather-temp">
+                                    <span class="temp-value" id="temperature">--</span>
+                                    <span class="temp-unit">°C</span>
+                                </div>
+                            </div>
+                            <div class="weather-details">
+                                <div class="weather-item">
+                                    <span class="weather-label">Humidity</span>
+                                    <span class="weather-value" id="humidity">--%</span>
+                                </div>
+                                <div class="weather-item">
+                                    <span class="weather-label">Wind Speed</span>
+                                    <span class="weather-value" id="windSpeed">-- km/h</span>
+                                </div>
+                                <div class="weather-item">
+                                    <span class="weather-label">Rainfall</span>
+                                    <span class="weather-value" id="rainfall">-- mm</span>
+                                </div>
+                            </div>
+                            <div class="weather-description" id="weatherDescription">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- Irrigation Advice Card -->
+                    <div class="result-card irrigation-card">
+                        <div class="card-header">
+                            <h3>💧 Irrigation Advice</h3>
+                        </div>
+                        <div class="card-content">
+                            <p id="irrigationAdvice">Getting personalized irrigation recommendations...</p>
+                        </div>
+                    </div>
+
+                    <!-- Crop Care Card -->
+                    <div class="result-card crop-care-card">
+                        <div class="card-header">
+                            <h3>🌾 Crop Care Tips</h3>
+                        </div>
+                        <div class="card-content">
+                            <p id="cropCareAdvice">Analyzing crop requirements...</p>
+                        </div>
+                    </div>
+
+                    <!-- Weather Alert Card -->
+                    <div class="result-card alert-card">
+                        <div class="card-header">
+                            <h3>⚠️ Weather Alerts</h3>
+                        </div>
+                        <div class="card-content">
+                            <p id="weatherAlert">Checking weather conditions...</p>
+                        </div>
+                    </div>
+
+                    <!-- Pest Alerts Card -->
+                    <div class="result-card pest-card">
+                        <div class="card-header">
+                            <h3>🐛 Pest Alerts</h3>
+                        </div>
+                        <div class="card-content">
+                            <div id="pestAlerts">Loading pest information...</div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Forecast Card -->
+                    <div class="result-card forecast-card">
+                        <div class="card-header">
+                            <h3>📈 7-Day Forecast</h3>
+                        </div>
+                        <div class="card-content">
+                            <div id="weatherForecast">Loading forecast...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="input-group">
-          <label for="growthStageInput" data-i18n="growth-stage-label">Growth Stage:</label>
-          <input type="text" id="growthStageInput" placeholder="e.g., Germination, Flowering, Harvesting" data-i18n-placeholder="growth-stage-placeholder">
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BhoomiCare AI</h4>
+                    <p>Empowering farmers with AI-driven agricultural insights for sustainable farming practices.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>Weather-based Irrigation</li>
+                        <li>Pest Threat Alerts</li>
+                        <li>Crop Care Tips</li>
+                        <li>Seasonal Forecasting</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>Help Center</li>
+                        <li>Contact Us</li>
+                        <li>Feedback</li>
+                        <li>Community</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BhoomiCare AI. Made with ❤️ for Indian Farmers by team Innovative Crew.</p>
+            </div>
         </div>
-        <div class="input-group">
-          <label for="soilTypeInput" data-i18n="soil-type-label">Soil Type:</label>
-          <input type="text" id="soilTypeInput" placeholder="e.g., Loamy, Clay, Sandy" data-i18n-placeholder="soil-type-placeholder">
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Analyzing your crop data...</p>
         </div>
-        <div class="input-group">
-          <label for="observationsInput" data-i18n="observations-label">Recent Observations:</label>
-          <textarea id="observationsInput" rows="3" placeholder="e.g., Yellowing leaves, new shoots, pest signs" data-i18n-placeholder="observations-placeholder"></textarea>
-        </div>
-        <button id="updateCropDetailsButton" data-i18n="update-crop-details">Update Crop Details & Get Advice</button>
-        <p id="cropDetailsMessage" class="info-message" style="display: none;"></p>
-      </div>
     </div>
 
-    <div class="right-column">
-      <div class="image-analysis-section card">
-        <h2 data-i18n="image-analysis-title">📸 Crop Image Analysis</h2>
-        <p data-i18n="image-analysis-description">Upload an image of your crop for AI-powered insights.</p>
-        <div class="file-upload-area">
-          <input type="file" id="cropImageInput" accept="image/*" style="display: none;">
-          <button id="uploadImageButton" data-i18n="upload-image-button">Choose Image</button>
-          <p id="fileNameDisplay" data-i18n="no-file-chosen">No file chosen</p>
-          <img id="uploadedImagePreview" src="#" alt="Crop Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 15px; border-radius: 8px;">
-        </div>
-        <button id="analyzeImageButton" data-i18n="analyze-image-button" style="margin-top: 15px;">Analyze Image</button>
-        <p id="imageAnalysisMessage" class="info-message" style="display: none;"></p>
-        <div id="imageAnalysisResults" class="analysis-results" style="display: none;">
-          <h3 data-i18n="analysis-results-heading">Analysis Results:</h3>
-          <p><strong data-i18n="detected-crop-type">Detected Crop Type:</strong> <span id="detectedCropType"></span></p>
-          <p><strong data-i18n="health-status">Health Status:</strong> <span id="healthStatus"></span></p>
-          <p><strong data-i18n="potential-issues">Potential Issues:</strong> <span id="potentialIssues"></span></p>
-        </div>
-      </div>
-
-      <div class="advisory-section card">
-        <h2 data-i18n="crop-advice">🌱 Crop Advice</h2>
-        <p id="adviceText">Loading...</p>
-      </div>
-
-      <div class="pest-section card">
-        <h2 data-i18n="pest-alerts">🐛 Pest Alerts</h2>
-        <ul id="pestAlerts"></ul>
-      </div>
-
-      <div class="watering-section card">
-        <h2 data-i18n="watering-suggestion">💧 Watering Suggestion</h2>
-        <p id="wateringText">Loading...</p>
-      </div>
-    </div>
-  </div>
-
-  <script src="/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
